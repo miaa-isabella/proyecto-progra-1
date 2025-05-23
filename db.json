@@ -1,0 +1,23 @@
+{
+
+    "peliculas":[
+        {
+
+        "id": 1,
+        "name": "como entrenar a tú dragon live action",
+        "productor": "no see",
+        "anio": 2025
+    },
+    {
+
+        "id": 2,
+        "name": "Patos",
+        "productor": "no see",
+        "anio": 2023
+    }
+
+
+
+]
+
+}
