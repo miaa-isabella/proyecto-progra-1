@@ -1,0 +1,33 @@
+GET http://localhost:3000/peliculas HTTP/1.1
+
+###
+
+GET http://localhost:3000/peliculas/1 HTTP/1.1
+
+###
+
+POST http://localhost:3000/peliculas HTTP/1.1
+Content-Type: application/json
+
+{   
+    "name": "bohemian rapsody",
+    "productor": "Graham King",
+    "anio": 2018 ,
+    "genero": "biografía"
+}
+
+###
+
+GET http://localhost:3000/peliculas HTTP/1.1
+
+###
+PUT http://localhost:3000/peliculas/3 HTTP/1.1
+Content-Type: application/json
+
+{   
+    "name": "Bohemian Rapsody",
+    
+}
+
+###
+DELETE http://localhost:3000/peliculas/3 HTTP/1.1

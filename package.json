@@ -4,26 +4,20 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev":"nodemon index.js"
+    "dev": "nodemon index.js"
   },
   "keywords": [
     "node",
     "js"
   ],
-
   "author": "mia",
   "license": "ISC",
   "description": "",
-
-   "dependencies": {
+  "dependencies": {
+    "cors": "^2.8.5",
     "express": "^5.1.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
   }
-
 }
-
-
- 
-
