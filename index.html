@@ -12,7 +12,7 @@
     
     
 <div class="container">
-   <button id="agregar" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalpelicula">agregar pelicula/serie</button>
+   <button id="botonagregar" class="btn btn-primary">Agregar Película/Serie</button>
 <table class="table mt-2 table-bordered table-striped" id="tablapelis">
             <thead>
                 <tr>
@@ -23,6 +23,8 @@
                 <th>año</th>
 
                 <th>Género</th>
+
+                <th>sipnosis</th>
 
             </tr>
             </thead>
@@ -36,18 +38,18 @@
 
 
 
-<div  id="modalpelicula" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div id="modalpelicula" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h1 class="modal-title fs-5" id="titulo">Nueva pelicula/serie</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cerrar"></button>
       </div>
       <div class="modal-body">
         <form>
           <div class="mb-3">
             <label for="nombre" class="col-form-label">nombre de la serie o película</label>
-            <input type="text" class="form-control" id="nombredelshow">
+            <input  type="text" class="form-control" id="nombredelshow">
           </div>
           <div class="mb-3">
             <label for="Productor" class="col-form-label">nombre del productor</label>
@@ -55,15 +57,26 @@
         
           </div>
            <div class="mb-3">
-            <label for="anio" class="col-form-label"></label>
-            <input type="text" class="form-control" id="nombredelproductor">
+            <label for="anio" class="col-form-label">año de salida</label>
+            <input type="date" class="form-control" id="anio">
         
           </div>
-        </form>
+       
+        <div class="mb-3">
+            <label for="genero" class="col-form-label">Género</label>
+            <input type="text" class="form-control" id="gen">
+        
+          </div>
+           <div class="mb-3">
+            <label for="sipnosis" class="col-form-label">agregar sipnosis</label>
+            <input type="text" class="form-control" id="resumen">
+        
+          </div>
+           </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">agregar</button>
       </div>
     </div>
   </div>
