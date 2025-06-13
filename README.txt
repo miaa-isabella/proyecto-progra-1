@@ -11,6 +11,6 @@
 #primero debes clonar el repo
 #luego vas a instalar las dependencias con (npm install)
 #luego vas a escribir npm run dev en la terminal
-#abriras el archivo html con live server
+#abriras el http://localhost:3000
 #Por último solo queda probar la página y listoo!!
 ##podrás eliminar, modificar, ver y crear las series y películas que quieras :)
