@@ -5,6 +5,7 @@ import cors from "cors";
 
 
     const app = express();
+    app.use(cors());
     app.use(bodyParser.json());
     app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
@@ -65,18 +66,25 @@ import cors from "cors";
       res.json(nuevapeli);
     });
 
-    app.put("/peliculas/:id", (req, res) => {
-        const data = readData();
-         const body = req.body;
-         const id = parseInt(req.params.id);
-         const peliculaIndex = data.peliculas.findIndex((pelicula) => pelicula.id === id);
-         data.peliculas[peliculaIndex] = {
-            ...data.peliculas[peliculaIndex],
-            ...body,
-         };
-         writeData(data);
-         res.json({message: "pelicula actualizada"});
-    });
+   app.put("/peliculas/:id", (req, res) => {
+    const data = readData();
+    const body = req.body;
+    const id = parseInt(req.params.id);
+
+    const peliculaIndex = data.peliculas.findIndex((pelicula) => pelicula.id === id);
+
+    if (peliculaIndex === -1) {
+        return res.status(404).json({ message: "Película no encontrada" });
+    }
+
+    data.peliculas[peliculaIndex] = {
+        ...data.peliculas[peliculaIndex],
+        ...body,
+    };
+
+    writeData(data);
+    res.json({ message: "Película actualizada" });
+});
 
     app.delete("/peliculas/:id", (req, res) => {
        const data = readData();
