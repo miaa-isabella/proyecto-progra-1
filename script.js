@@ -1,4 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
+   buscador.addEventListener("input", () => {
+  const texto = buscador.value.toLowerCase();
+  const filas = container.querySelectorAll("tr");
+
+  filas.forEach(fila => {
+    const nombre = fila.children[1].textContent.toLowerCase();
+    const genero = fila.children[4].textContent.toLowerCase();
+
+    if (nombre.includes(texto) || genero.includes(texto)) {
+      fila.style.display = "";
+    } else {
+      fila.style.display = "none";
+    }
+  });
+});
+
   const modalpelicula = document.getElementById('modalpelicula');
   const modalpeli = new bootstrap.Modal(modalpelicula, {
     backdrop: 'static',
@@ -56,24 +72,21 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
 
-  on(document, 'click', '.botonborrar', e => {
-    const fila = e.target.closest('tr');
-    const id = fila.firstElementChild.innerHTML;
-    alertify.confirm("¿Seguro que quieres borrar este elemento?",
-      function () {
-        fetch('http://localhost:3000/peliculas/' + id, {
-          method: 'DELETE'
-        })
-          .then(res => res.json())
-          .then(() => {
-            location.reload();
-            alertify.success('Película eliminada');
-          });
-      },
-      function () {
-        alertify.error('Operación cancelada');
-      });
-  });
+on(document, 'click', '.botonborrar', e => {
+  const fila = e.target.closest('tr');
+  const id = parseInt(fila.firstElementChild.innerHTML);
+
+  alertify.confirm("¿Seguro que quieres borrar este elemento?",
+    function () {
+      peliculas = peliculas.filter(p => p.id !== id);
+      guardarPeliculas(peliculas);
+      mostrarData(peliculas);
+      alertify.success('Película eliminada');
+    },
+    function () {
+      alertify.error('Operación cancelada');
+    });
+});
 
   on(document, 'click', '.botoneditar', e => {
     const fila = e.target.closest('tr');
@@ -114,41 +127,36 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   if (opcion === 'crear') {
-    fetch('http://localhost:3000/peliculas', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(pelicula)
-    })
-      .then(res => res.json())
-      .then(() => {
-        alertify.success("Película agregada");
-        return fetch('http://localhost:3000/peliculas');
-      })
-      .then(res => res.json())
-      .then(data => mostrarData(data));
-  }
+  const nuevaId = peliculas.length ? Math.max(...peliculas.map(p => p.id)) + 1 : 1;
+  pelicula.id = nuevaId;
+  peliculas.push(pelicula);
+  guardarPeliculas(peliculas);
+  alertify.success("Película agregada");
+  mostrarData(peliculas);
+}
+
 
   if (opcion === 'editar') {
-    fetch(`http://localhost:3000/peliculas/${idform}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(pelicula)
-    })
-      .then(res => res.json())
-      .then(() => {
-        alertify.success("Película actualizada");
-        return fetch('http://localhost:3000/peliculas');
-      })
-      .then(res => res.json())
-      .then(data => mostrarData(data));
-  }
+  const index = peliculas.findIndex(p => p.id === idform);
+  pelicula.id = idform;
+  peliculas[index] = pelicula;
+  guardarPeliculas(peliculas);
+  alertify.success("Película actualizada");
+  mostrarData(peliculas);
+}
 
   modalpeli.hide();
 });
 
 });
 
+function guardarPeliculas(peliculas) {
+  localStorage.setItem("peliculas", JSON.stringify(peliculas));
+}
+
+function cargarPeliculas() {
+  const datos = localStorage.getItem("peliculas");
+  return datos ? JSON.parse(datos) : [];
+}
+let peliculas = cargarPeliculas();
+mostrarData(peliculas);
